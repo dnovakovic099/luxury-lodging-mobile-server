@@ -9,7 +9,8 @@ const _config = {
     DATABASE_USER: process.env.DATABASE_USERNAME,
     DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
     DATABASE_NAME: process.env.DATABASE_NAME,
-    CORS_WHITELIST: process.env.CORS_WHITELIST,
+    JWT_SECRET: process.env.JWT_SECRET,
+    JWT_EXPIRY: process.env.JWT_EXPIRY
 };
 
 export const config = Object.freeze(_config);
