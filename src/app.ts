@@ -1,9 +1,13 @@
 import express, { Application, NextFunction, Request, Response } from "express";
 import globalErrorHandler from "./middlewares/globalErrorHandler";
+import helmet from "helmet";
+import cors from "cors";
 
 const app: Application = express();
 
 // Middlewares
+app.use(cors());
+app.use(helmet());
 app.use(express.json());
 
 
