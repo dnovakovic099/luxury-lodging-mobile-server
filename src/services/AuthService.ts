@@ -6,6 +6,7 @@ import { JwtService } from "./JwtService";
 
 export class AuthService {
     private mobileUserRepo = appDatabase.getRepository(MobileUserEntity);
+    private jwtServices = new JwtService();
 
     public async signIn(email: string, password: string) {
         //check if user exists
@@ -14,8 +15,8 @@ export class AuthService {
             throw createHttpError(401, "Invalid credentials");
         }
 
-        const jwtServices = new JwtService();
-        const token = await jwtServices.sign({
+
+        const token = await this.jwtServices.sign({
             userId: user.id,
             email,
             name: `${user.firstName} ${user.lastName}`
