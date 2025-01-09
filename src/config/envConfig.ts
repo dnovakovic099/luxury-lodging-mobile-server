@@ -10,7 +10,10 @@ const _config = {
     DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
     DATABASE_NAME: process.env.DATABASE_NAME,
     JWT_SECRET: process.env.JWT_SECRET,
-    JWT_EXPIRY: process.env.JWT_EXPIRY
+    JWT_EXPIRY: process.env.JWT_EXPIRY,
+    SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+    EMAIL_FROM: process.env.EMAIL_FROM,
+    EMAIL_TO: process.env.EMAIL_TO,
 };
 
 export const config = Object.freeze(_config);

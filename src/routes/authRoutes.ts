@@ -6,6 +6,6 @@ import { authSchema } from "../validation/authSchema";
 const router = Router();
 const authController = new AuthController();
 
-router.route('/signin').post(validate(authSchema, request.body), authController.signin);
+router.route('/signin').post(validate(authSchema), authController.signin);
 
 export default router;

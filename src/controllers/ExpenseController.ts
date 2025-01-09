@@ -10,8 +10,7 @@ export class ExpenseController {
         try {
             const userId = request.user.userId;
             const listingId = request.query.listingId || null;
-            const expenseService = new ExpenseService();
-            const totalExpense = await expenseService.getTotalExpenseByUserId(userId, Number(listingId));
+            const totalExpense = await this.expenseService.getTotalExpenseByUserId(userId, Number(listingId));
             response.status(200).json({
                 success: true,
                 totalExpense
