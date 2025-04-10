@@ -20,4 +20,22 @@ export class OwnerPortalController {
             next(error);
         }
     }
+
+    async getReferralCode(request: CustomRequest, response: Response, next: NextFunction) {
+        try {
+            const userId = request.user.userId;
+            const email = request.user.email;
+
+            const ownerPortalService = new OwnerPortalService();
+            const referralCode = await ownerPortalService.getReferralCode(userId, email);
+
+            response.status(200).json({
+                success: true,
+                data: referralCode
+            });
+        } catch (error) {
+            logger.error(`{Api:${request.url}, Error: ${error} }`);
+            next(error);
+        }
+    }
 }

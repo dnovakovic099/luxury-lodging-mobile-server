@@ -11,4 +11,10 @@ router.route('/getpartnershipinfo')
         ownerPortalController.getPartnershipInfo
     );
 
+router.route('/getreferralcode')
+    .get(
+        authenticate,
+        ownerPortalController.getReferralCode
+    )
+
 export default router;
