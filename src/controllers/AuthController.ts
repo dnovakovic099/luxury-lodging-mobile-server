@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { AuthService } from "../services/AuthService";
 import logger from "../config/winstonLoggerConfig";
+import { CustomRequest } from "../interfaces/User";
 
 export class AuthController {
     async signin(request: Request, response: Response, next: NextFunction) {
@@ -21,4 +22,21 @@ export class AuthController {
         }
     }
 
+    async saveFCMToken(request: CustomRequest, response: Response, next: NextFunction) {
+        try {
+            const { token } = request.body;
+            const userId = request.user.userId;
+            
+            const authService = new AuthService();
+            const newToken = await authService.saveFCMToken(token, userId);
+
+            response.status(201).json({
+                success: true,
+                token: newToken
+            });
+        } catch (error) {
+            logger.error(`{Api:${request.url}, Error: ${error} }`);
+            next(error);
+        }
+    }
 }

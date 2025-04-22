@@ -3,9 +3,11 @@ import { appDatabase } from "../config/database";
 import { MobileUserEntity } from "../entity/MobileUser";
 import bcrypt from "bcryptjs";
 import { JwtService } from "./JwtService";
+import { FCMToken } from "../entity/FCMToken";
 
 export class AuthService {
     private mobileUserRepo = appDatabase.getRepository(MobileUserEntity);
+    private fcmTokenRepo = appDatabase.getRepository(FCMToken);
     private jwtServices = new JwtService();
 
     public async signIn(email: string, password: string) {
@@ -26,5 +28,12 @@ export class AuthService {
             accessToken: token,
             revenueSharing: user.revenueSharing
         };
+    }
+
+    public async saveFCMToken(token: string, userId: number) {
+        const newToken = new FCMToken();
+        newToken.token = token;
+        newToken.userId = userId;
+        return await this.fcmTokenRepo.save(newToken);
     }
 }
