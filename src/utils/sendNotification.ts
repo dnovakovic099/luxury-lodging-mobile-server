@@ -1,5 +1,5 @@
 // sendNotification.ts
-import { messaging } from '../config/firebaseCloudMessagingConfig';
+import { fcm } from '../config/firebaseCloudMessagingConfig';
 import logger from '../config/winstonLoggerConfig';
 import { appDatabase } from "../config/database";
 import { FCMToken } from '../entity/FCMToken';
@@ -34,7 +34,7 @@ export const sendNotificationToUser = async (
     };
 
     try {
-        const response = await messaging.sendMulticast(message);
+        const response = await fcm.messaging().sendEachForMulticast(message);
         logger.info(`[sendNotificationToUser] FCM sent to ${response.successCount} devices, failed: ${response.failureCount}`);
 
         // Clean up invalid tokens
@@ -74,7 +74,7 @@ export const sendNotificationToAll = async (
     };
 
     try {
-        const response = await messaging.sendMulticast(message);
+        const response = await fcm.messaging().sendEachForMulticast(message);
         logger.info(`[sendNotificationToUser] FCM sent to ${response.successCount} devices, failed: ${response.failureCount}`);
 
         // Clean up invalid tokens
