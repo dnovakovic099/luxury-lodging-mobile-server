@@ -16,11 +16,11 @@ export class ReservationService {
         const checkIn = reservation.arrivalDate;
         const checkOut = reservation.departureDate;
         const totalPrice = reservation.totalPrice;
-        const guestFirstName = reservation.guestFirstName;
+        const guestFirstName = reservation.guestFirstName || reservation.guestName;
         const listingName = reservation.listingName;
 
         const payload = {
-            title: `🎉 New Booking:${formatCurrency(totalPrice)} Earned!`,
+            title: `🎉 New Booking: ${formatCurrency(totalPrice)} Earned!`,
             body: `${guestFirstName} booked ${listingName} from ${checkIn} to ${checkOut}. Tap to view details!`
         };
 
