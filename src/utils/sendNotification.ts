@@ -3,6 +3,7 @@ import { fcm } from '../config/firebaseCloudMessagingConfig';
 import logger from '../config/winstonLoggerConfig';
 import { appDatabase } from "../config/database";
 import { FCMToken } from '../entity/FCMToken';
+import { In } from 'typeorm';
 
 type NotificationPayload = {
     title: string;
@@ -10,18 +11,20 @@ type NotificationPayload = {
 };
 
 export const sendNotificationToUser = async (
-    userId: number,
+    userIds: number[],
     payload: NotificationPayload
 ) => {
     const fcmRepo = appDatabase.getRepository(FCMToken);
 
     const tokens = await fcmRepo.find({
-        where: { userId },
+        where: {
+            userId: In(userIds)
+        },
     });
 
     const tokenList = tokens.map((t: any) => t.token);
     if (tokenList.length === 0) {
-        logger.info(`[sendNotificationToUser] No FCM tokens found for user ${userId}`);
+        logger.info(`[sendNotificationToUser] No FCM tokens found for user ${userIds}`);
         return;
     }
 

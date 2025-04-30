@@ -6,5 +6,6 @@ export const newReservationSchema = Joi.object({
     departureDate: Joi.any().required(),
     totalPrice: Joi.any().required(),
     guestFirstName: Joi.any().required(),
-    listingName: Joi.any().required()
+    listingName: Joi.any().required(),
+    listingMapId: Joi.any().required()
 });
