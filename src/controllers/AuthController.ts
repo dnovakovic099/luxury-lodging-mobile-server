@@ -26,7 +26,8 @@ export class AuthController {
         try {
             const { token } = request.body;
             const userId = request.user.userId;
-            
+            logger.info(`[saveFCMToken] New token received for user${request.user?.name}`);
+            logger.info(`[saveFCMToken] Token: ${token}`)
             const authService = new AuthService();
             const newToken = await authService.saveFCMToken(token, userId);
 
