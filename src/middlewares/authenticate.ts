@@ -29,6 +29,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
         }
 
         const token = parts[1];
+        logger.info(`Auth-Token: ${token}`);
         const jwtServices = new JwtService();
         const { userId, email, name } = (await jwtServices.verify(token)) as TokenPayload;
         (req as Request & { user: User; }).user = { userId, email, name };
